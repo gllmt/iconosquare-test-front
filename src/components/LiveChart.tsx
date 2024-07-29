@@ -10,9 +10,7 @@ import {
 import { useLiveChartContext } from "../utils/hooks/useLiveChartContext";
 
 const LiveChart = () => {
-  const { data } = useLiveChartContext();
-  const nbTotalEvents = data?.events?.length;
-  const eventsFiltered = data.events.slice(nbTotalEvents - 20, nbTotalEvents);
+  const { displayEvents: eventsFiltered } = useLiveChartContext();
   return (
     <div className="mb-8">
       <ResponsiveContainer height={250}>

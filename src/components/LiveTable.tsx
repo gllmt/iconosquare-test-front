@@ -1,10 +1,7 @@
-import React from "react";
 import { useLiveChartContext } from "../utils/hooks/useLiveChartContext";
 
 const LiveTable = () => {
-  const { data } = useLiveChartContext();
-  const nbTotalEvents = data?.events?.length;
-  const eventsFiltered = data.events.slice(nbTotalEvents - 20, nbTotalEvents);
+  const { displayEvents: eventsFiltered } = useLiveChartContext();
   return (
     <div className="flex border border-gray-300 rounded">
       <div>

@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useReducer } from "react";
+import { ReactNode, createContext, useReducer, useMemo } from "react";
 import { createRandomEvent } from "../utils";
 import { type Event } from "../utils";
 
@@ -14,6 +14,7 @@ type Action = {
 export const LiveChartContext = createContext<{
   data: State;
   dispatch: React.Dispatch<Action>;
+  displayEvents: Event[];
 } | null>(null);
 
 const initialEvents: Event[] = Array.from(Array(50)).map((_, ix) =>
@@ -44,8 +45,13 @@ export const LiveChartProvider = ({ children }: { children: ReactNode }) => {
     liveChartReducer,
     initialData
   );
+  const displayEvents = useMemo(() => {
+    const nbTotalEvents = data?.events?.length;
+    return data.events.slice(nbTotalEvents - 20, nbTotalEvents);
+  }, [data.events]);
+
   return (
-    <LiveChartContext.Provider value={{ data, dispatch }}>
+    <LiveChartContext.Provider value={{ data, dispatch, displayEvents }}>
       {children}
     </LiveChartContext.Provider>
   );
