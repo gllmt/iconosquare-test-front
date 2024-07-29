@@ -10,12 +10,32 @@ import {
 import { useLiveChartContext } from "../utils/hooks/useLiveChartContext";
 
 const LiveChart = () => {
-  const { displayEvents: eventsFiltered } = useLiveChartContext();
+  const {
+    displayEvents: eventsFiltered,
+    displayIndex,
+    dispatch,
+  } = useLiveChartContext();
+
+  // console.log(dispatch);
+
+  const openCell = (chartEvent: any) => {
+    // Open cell only work in pause mode
+    if (displayIndex === -1) {
+      dispatch({ type: "toggle_pause" });
+    }
+
+    const index = eventsFiltered[chartEvent.activeTooltipIndex].index;
+    dispatch({
+      type: "update_event_edition",
+      payload: { index, key: "value1" },
+    });
+  };
+
   return (
     <div className="">
       <ResponsiveContainer height={250}>
         <AreaChart
-          onClick={(e) => console.log(e.activeTooltipIndex)}
+          onClick={openCell}
           data={eventsFiltered}
           margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
         >

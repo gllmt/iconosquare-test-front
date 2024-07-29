@@ -13,12 +13,14 @@ type Action =
   | { type: "toggle_pause" }
   | {
       type: "update_event";
-      payload: { index: number; key: string; value: string };
+      payload: { index: number; key: string; value: number };
     }
   | {
       type: "update_event_edition";
-      payload: { index: number; key: string | null };
-    };
+      payload: { index: number; key: string };
+    }
+  | { type: "jump_to_event"; payload: { index: number } }
+  | { type: "reset_events" };
 
 const LiveChartContext = createContext<{
   data: State;
@@ -49,14 +51,13 @@ const actionUpdateEvent = (state: State, action: Action) => {
     throw new Error(`Event with index ${index} not found`);
   }
 
-  // Archive the original value
-  const archiveKey = `old_${key}`;
-  if (!event[archiveKey]) {
-    event[archiveKey] = event[key];
-  }
+  const valueKey = key as "value1" | "value2";
+  const oldValueKey = `old_${key}` as "old_value1" | "old_value2";
 
-  // Update the event value
-  event[key] = value;
+  if (event[oldValueKey] === -1) {
+    event[oldValueKey] = event[valueKey];
+  }
+  event[valueKey] = value;
 
   return {
     ...state,
@@ -73,10 +74,30 @@ const actionUpdateEventEdition = (state: State, action: Action) => {
   // Reset the edition mode for all events except the one asked
   state.events.forEach((event) => {
     if (event.index !== index) {
-      event.inEdit = null;
+      event.inEdit = "";
     } else {
       event.inEdit = key;
     }
+  });
+
+  return {
+    ...state,
+  };
+};
+
+const actionResetEvents = (state: State) => {
+  state.events.forEach((event) => {
+    if (event.old_value1 !== -1) {
+      event.value1 = event.old_value1;
+    }
+    event.old_value1 = -1;
+
+    if (event.old_value2 !== -1) {
+      event.value2 = event.old_value2;
+    }
+    event.old_value2 = -1;
+
+    event.inEdit = "";
   });
 
   return {
@@ -99,10 +120,17 @@ const liveChartReducer = (state: State, action: Action): State => {
         ...state,
         displayIndex: state.displayIndex === -1 ? state.events.length - 1 : -1,
       };
+    case "jump_to_event":
+      return {
+        ...state,
+        displayIndex: action.payload.index,
+      };
     case "update_event":
       return actionUpdateEvent(state, action);
     case "update_event_edition":
       return actionUpdateEventEdition(state, action);
+    case "reset_events":
+      return actionResetEvents(state);
     default: {
       throw new Error(`Unhandled action type: ${action}`);
     }

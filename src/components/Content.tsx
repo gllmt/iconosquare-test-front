@@ -17,6 +17,13 @@ const Content = () => {
         >
           {displayIndex === -1 ? "Pause" : "Resume"}
         </button>
+
+        <button
+          onClick={() => dispatch({ type: "reset_events" })}
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Reset Events
+        </button>
       </div>
       <LiveTable />
     </div>

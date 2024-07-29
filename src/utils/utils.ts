@@ -5,7 +5,7 @@ export type Event = {
   value2: number;
   old_value2: number;
   comment: string;
-  [key: string]: any;
+  inEdit: string;
 };
 
 export function createRandomEvent(index: number): Event {
@@ -16,5 +16,6 @@ export function createRandomEvent(index: number): Event {
     value2: Math.round(Math.random() * 10000),
     old_value2: -1,
     comment: `Random comment ${index}`,
+    inEdit: "",
   };
 }

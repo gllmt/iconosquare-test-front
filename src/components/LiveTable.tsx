@@ -15,18 +15,18 @@ const LiveTable = () => {
     }
 
     // Set openedCell only if it's another one
-    if (focusedEvent?.index !== index && focusedEvent?.inEdit !== key) {
+    if (focusedEvent?.index !== index || focusedEvent?.inEdit !== key) {
       dispatch({ type: "update_event_edition", payload: { index, key } });
     }
   };
 
-  const updateEventValue = (index: number, key: string, value: string) => {
+  const updateEventValue = (index: number, key: string, value: number) => {
     dispatch({ type: "update_event", payload: { index, key, value } });
   };
 
   const closeCell = (index: number) => {
     // Reset the event edition mode
-    dispatch({ type: "update_event_edition", payload: { index, key: null } });
+    dispatch({ type: "update_event_edition", payload: { index, key: "" } });
   };
   return (
     <div className="flex border border-gray-300 rounded">
@@ -48,8 +48,13 @@ const LiveTable = () => {
                   type="text"
                   value={focusedEvent?.value1}
                   onChange={(e) =>
-                    updateEventValue(event.index, "value1", e.target.value)
+                    updateEventValue(
+                      event.index,
+                      "value1",
+                      parseInt(e.target.value)
+                    )
                   }
+                  autoFocus
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       closeCell(event.index);
@@ -68,8 +73,13 @@ const LiveTable = () => {
                 <input
                   type="text"
                   value={focusedEvent?.value2}
+                  autoFocus
                   onChange={(e) =>
-                    updateEventValue(event.index, "value2", e.target.value)
+                    updateEventValue(
+                      event.index,
+                      "value2",
+                      parseInt(e.target.value)
+                    )
                   }
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
