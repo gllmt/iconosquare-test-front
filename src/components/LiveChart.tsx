@@ -12,7 +12,7 @@ import { useLiveChartContext } from "../utils/hooks/useLiveChartContext";
 const LiveChart = () => {
   const { displayEvents: eventsFiltered } = useLiveChartContext();
   return (
-    <div className="mb-8">
+    <div className="">
       <ResponsiveContainer height={250}>
         <AreaChart
           onClick={(e) => console.log(e.activeTooltipIndex)}
