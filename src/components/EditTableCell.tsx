@@ -37,6 +37,7 @@ const EditTableCell = ({ value, onChange, onEnter }: EditTableCellProps) => {
         }}
         onBlur={onEnter}
         autoFocus
+        className="pl-1 max-w-20"
       />
       {error && <div className="text-red-500">{error}</div>}
     </>
