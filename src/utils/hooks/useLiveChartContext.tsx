@@ -37,10 +37,12 @@ const LiveChartContext = createContext<{
   focusedEvent: Event | null;
 } | null>(null);
 
+// Initial events for the live chart context
 const initialEvents: Event[] = Array.from(Array(50)).map((_, ix) =>
   createRandomEvent(ix)
 );
 
+// Initial state for the live chart context
 const initialData: State = {
   events: initialEvents,
   displayIndex: -1,
@@ -92,6 +94,7 @@ const actionUpdateEventEdition = (state: State, action: Action) => {
   };
 };
 
+// Reset the events to their original values
 const actionResetEvents = (state: State) => {
   state.events.forEach((event) => {
     if (event.old_value1 !== -1) {
@@ -112,6 +115,7 @@ const actionResetEvents = (state: State) => {
   };
 };
 
+// Reducer for the live chart context
 const liveChartReducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "new_event":
@@ -144,6 +148,7 @@ const liveChartReducer = (state: State, action: Action): State => {
   }
 };
 
+// Memorize the events to display
 const displayEventsMemorizer = ({
   events,
   displayIndex,
@@ -161,7 +166,7 @@ const displayEventsMemorizer = ({
   }
 };
 
-// Return the event that is in edition mode
+// Memorize the event that is in edition mode
 const focusedEventMemorizer = ({
   events,
 }: {
