@@ -32,8 +32,8 @@ const LiveChart = () => {
   };
 
   return (
-    <div className="">
-      <ResponsiveContainer height={250}>
+    <div className="w-full h-64 md:h-80 lg:h-96">
+      <ResponsiveContainer width="100%" height="100%">
         <AreaChart
           onClick={openCell}
           data={eventsFiltered}
