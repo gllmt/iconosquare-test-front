@@ -1,29 +1,15 @@
 import LiveTable from "./LiveTable";
 import LiveChart from "./LiveChart";
-import { useLiveChartContext } from "../utils/hooks/useLiveChartContext";
+import PauseResumeButton from "./PauseResumeButton";
+import ResetEventsButton from "./ResetEventsButton";
 
 const Content = () => {
-  const {
-    dispatch,
-    data: { displayIndex },
-  } = useLiveChartContext();
   return (
     <div className="mx-auto max-w-7xl px-8 pb-12">
       <LiveChart />
-      <div className="flex justify-center items-center pt-4 pb-6">
-        <button
-          onClick={() => dispatch({ type: "toggle_pause" })}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          {displayIndex === -1 ? "Pause" : "Resume"}
-        </button>
-
-        <button
-          onClick={() => dispatch({ type: "reset_events" })}
-          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Reset Events
-        </button>
+      <div className="flex justify-center items-center pt-4 pb-6 gap-4">
+        <PauseResumeButton />
+        <ResetEventsButton />
       </div>
       <LiveTable />
     </div>

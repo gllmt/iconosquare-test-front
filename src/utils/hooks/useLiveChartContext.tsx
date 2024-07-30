@@ -8,19 +8,26 @@ type State = {
   displayIndex: number;
 };
 
+type NewEventAction = { type: "new_event"; payload: Event };
+type TogglePauseAction = { type: "toggle_pause" };
+type UpdateEventAction = {
+  type: "update_event";
+  payload: { index: number; key: string; value: number };
+};
+type UpdateEventEditionAction = {
+  type: "update_event_edition";
+  payload: { index: number; key: string };
+};
+type JumpToEventAction = { type: "jump_to_event"; payload: { index: number } };
+type ResetEventsAction = { type: "reset_events" };
+
 type Action =
-  | { type: "new_event"; payload: Event }
-  | { type: "toggle_pause" }
-  | {
-      type: "update_event";
-      payload: { index: number; key: string; value: number };
-    }
-  | {
-      type: "update_event_edition";
-      payload: { index: number; key: string };
-    }
-  | { type: "jump_to_event"; payload: { index: number } }
-  | { type: "reset_events" };
+  | NewEventAction
+  | TogglePauseAction
+  | UpdateEventAction
+  | UpdateEventEditionAction
+  | JumpToEventAction
+  | ResetEventsAction;
 
 const LiveChartContext = createContext<{
   data: State;

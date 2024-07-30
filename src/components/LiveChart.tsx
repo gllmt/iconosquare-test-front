@@ -75,6 +75,4 @@ const LiveChart = () => {
   );
 };
 
-LiveChart.propTypes = {};
-
 export default LiveChart;
