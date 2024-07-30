@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import useKeyPress from "../utils/hooks/useKeyPress";
 import { useLiveChartContext } from "../utils/hooks/useLiveChartContext";
+import { Rewind } from "lucide-react";
 
 const BackwardButton = () => {
   const {
@@ -26,11 +27,13 @@ const BackwardButton = () => {
     <button
       disabled={!isEnable}
       onClick={handleBackward}
-      className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ${
+      className={`bg-blue-500 hover:bg-blue-700 py-2 pl-2 pr-3 rounded ${
         isEnable ? "opacity-100" : "opacity-35"
       }`}
+      aria-label="Backward"
+      title="Backward"
     >
-      Backward
+      <Rewind color="white" />
     </button>
   );
 };

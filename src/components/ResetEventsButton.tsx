@@ -1,3 +1,4 @@
+import { Undo } from "lucide-react";
 import { useLiveChartContext } from "../utils/hooks/useLiveChartContext";
 
 const ResetEventsButton = () => {
@@ -10,9 +11,11 @@ const ResetEventsButton = () => {
   return (
     <button
       onClick={handleResetEvents}
-      className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+      className="bg-red-500 hover:bg-red-700 rounded-full p-2"
+      aria-label="Reset edits value"
+      title="Reset edits value"
     >
-      Reset
+      <Undo color="white" />
     </button>
   );
 };

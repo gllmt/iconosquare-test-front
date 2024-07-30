@@ -1,3 +1,4 @@
+import { SkipForward } from "lucide-react";
 import { useLiveChartContext } from "../utils/hooks/useLiveChartContext";
 
 const CurrentEventsButton = () => {
@@ -13,9 +14,11 @@ const CurrentEventsButton = () => {
   return (
     <button
       onClick={handleJumpToCurrent}
-      className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+      className="bg-green-500 hover:bg-green-700 rounded-full p-2"
+      aria-label="Jump to current events"
+      title="Jump to current events"
     >
-      Current Events
+      <SkipForward color="white" />
     </button>
   );
 };
